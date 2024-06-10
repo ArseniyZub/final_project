@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import logout, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -11,20 +11,19 @@ from django.views.generic import CreateView
 from .forms import *
 from .models import *
 
-menu = [{'title': 'Вкусняшки', 'url': 'all_recipes'},
-        {'title': 'Добавить вкусняшку', 'url': 'add_recipe'}]
+menu = [{'title': 'Рецепты', 'url': 'all_recipes'},
+        {'title': 'Добавить рецепт', 'url': 'add_recipe'}]
 
 
 def index(request):
-    """Отображает страницу-приветствие проекта"""
-    context = {'menu': menu, 'title': 'ПОВАРЁНОК'}
+    context = {'menu': menu}
 
     return render(request, 'myapp/index.html', context)
 
 
 def all_recipes(request):
     recipes = Recipe.objects.all()
-    context = {'menu': menu, 'title': 'ВКУСНЯШКИ', 'recipes': recipes}
+    context = {'menu': menu, 'title': 'Рецепты', 'recipes': recipes}
 
     return render(request, 'myapp/recipe_list.html', context)
 
@@ -45,10 +44,10 @@ def add_recipe(request):
                 form.save()
                 return redirect('index')
             except:
-                form.add_error(None, 'Ошибка добавления вкусняшки')
+                form.add_error(None, 'Ошибка добавления рецепта')
     else:
         form = AddRecipeForm()
-    context = {'menu': menu, 'title': 'Добавление вкусняшки', 'form': form}
+    context = {'menu': menu, 'title': 'Добавление рецепта', 'form': form}
 
     return render(request, 'myapp/addrecipe.html', context)
 
