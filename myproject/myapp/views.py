@@ -1,5 +1,5 @@
 import re
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 
 from django.contrib.auth import logout, login
 from django.contrib.auth.forms import AuthenticationForm
@@ -58,6 +58,24 @@ def add_recipe(request):
     context = {'menu': menu, 'title': 'Добавление рецепты', 'form': form}
 
     return render(request, 'myapp/addrecipe.html', context)
+
+def edit_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect('recipe_by_id', recipe_id=recipe_id)
+    else:
+        form = RecipeForm(instance=recipe)
+    return render(request, 'myapp/edit_recipe.html', {'form': form, 'recipe': recipe})
+
+def delete_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    if request.method == 'POST':
+        recipe.delete()
+        return redirect('all_recipes')
+    return render(request, 'myapp/delete_recipe.html', {'recipe': recipe})
 
 
 def page_not_found(request, exception):

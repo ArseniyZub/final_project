@@ -9,5 +9,7 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
-    path('addrecipe/', add_recipe, name='add_recipe')
+    path('addrecipe/', add_recipe, name='add_recipe'),
+    path('recipe/<int:recipe_id>/edit/', edit_recipe, name='edit_recipe'),
+    path('recipe/<int:recipe_id>/delete/', delete_recipe, name='delete_recipe'),
 ]

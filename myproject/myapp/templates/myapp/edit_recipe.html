@@ -1,0 +1,16 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}
+Редактировать рецепт: {{ recipe.title }}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="display-4">Редактировать рецепт: {{ recipe.title }}</h1>
+    <form action="{% url 'edit_recipe' recipe.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+</div>
+{% endblock %}
