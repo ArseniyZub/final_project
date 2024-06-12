@@ -19,7 +19,7 @@ class Recipe(models.Model):
     cooking_time = models.PositiveIntegerField()
     image = models.ImageField(upload_to='recipes/', blank=True, null=True)
     ingredients = models.TextField(default='')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
