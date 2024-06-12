@@ -42,18 +42,21 @@ def add_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
-            recipe = form.save(commit=False)
-            recipe.save()
+            try:
+                recipe = form.save(commit=False)
+                recipe.save()
 
-            ingredients_text = form.cleaned_data['ingredients']
-            recipe.ingredients = ingredients_text
-            recipe.save()
+                ingredients_text = form.cleaned_data['ingredients']
+                recipe.ingredients = ingredients_text
+                recipe.save()
+                return redirect('index')
+            except:
+                form.add_error(None, 'Ошибка добавления рецепта')
 
-            return redirect('index')
     else:
         form = RecipeForm()
+    context = {'menu': menu, 'title': 'Добавление вкусняшки', 'form': form}
 
-    context = {'form': form}
     return render(request, 'myapp/addrecipe.html', context)
 
 
