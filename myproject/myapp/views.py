@@ -31,7 +31,7 @@ def all_recipes(request):
 
 
 def recipe_by_id(request, recipe_id):
-    recipe = Recipe.objects.get(id=recipe_id)
+    recipe = get_object_or_404(Recipe, id=recipe_id)
     ingredients = IngredientInRecipe.objects.filter(recipe=recipe)
     context = {'menu': menu, 'title': recipe.title, 'recipe': recipe, 'ingredients': ingredients}
 
