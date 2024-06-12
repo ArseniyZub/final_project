@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.contrib.auth import logout, login
 from django.contrib.auth.forms import AuthenticationForm
@@ -7,6 +7,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from .forms import RecipeForm
 
 from .forms import *
 from .models import *
@@ -38,18 +39,13 @@ def recipe_by_id(request, recipe_id):
 
 def add_recipe(request):
     if request.method == 'POST':
-        form = AddRecipeForm(request.POST, request.FILES)
+        form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                form.save()
-                return redirect('index')
-            except:
-                form.add_error(None, 'Ошибка добавления рецепта')
+            form.save()
+            return redirect('recipes') 
     else:
-        form = AddRecipeForm()
-    context = {'menu': menu, 'title': 'Добавление рецепта', 'form': form}
-
-    return render(request, 'myapp/addrecipe.html', context)
+        form = RecipeForm()
+    return render(request, 'addrecipe.html', {'form': form, 'title': 'Добавить рецепт'})
 
 
 def page_not_found(request, exception):

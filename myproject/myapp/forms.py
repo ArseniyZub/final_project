@@ -5,7 +5,10 @@ from django.contrib.auth.models import User
 from .models import *
 
 
-class AddRecipeForm(forms.ModelForm):
+class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['title', 'description', 'cooking_time']
+        fields = ['title', 'description', 'cooking_time', 'image', 'ingredients']
+        widgets = {
+            'ingredients': forms.Textarea(attrs={'rows': 4}),
+        }
