@@ -13,6 +13,9 @@
     <ul class="list-unstyled">
         {% for ingredient in ingredients %}
         <li class="media my-4">
+            {% if ingredient.recipe.image %}
+            <img src="{{ ingredient.recipe.image.url }}" class="mr-3" alt="{{ ingredient.recipe.title }}" style="width: 100px; height: auto;">
+            {% endif %}
             <div class="media-body">
                 <h5 class="mt-0 mb-1">{{ ingredient.ingredient.name }}</h5>
                 <p>{{ ingredient.amount }}</p>
