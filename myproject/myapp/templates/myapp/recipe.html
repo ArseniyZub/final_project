@@ -20,5 +20,10 @@
         </li>
         {% endfor %}
     </ul>
+
+    <div class="my-4">
+        <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-primary">Редактировать</a>
+        <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger">Удалить</a>
+    </div>
 </div>
 {% endblock %}
