@@ -32,8 +32,8 @@ def all_recipes(request):
 def recipe_by_id(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
     ingredients = IngredientInRecipe.objects.filter(recipe_id=recipe_id)
-    context = {'menu': menu, 'title': {recipe_id}, 'recipe': recipe, 'ingredients': ingredients}
-
+    context = {'menu': menu, 'title': recipe.title, 'recipe': recipe, 'ingredients': ingredients}
+    
     return render(request, 'myapp/recipe.html', context)
 
 

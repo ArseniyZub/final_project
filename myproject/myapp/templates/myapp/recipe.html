@@ -1,24 +1,27 @@
 {% extends 'myapp/base.html' %}
 
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
 <div class="container mt-4">
     <h1 class="display-4">{{ recipe.title }}</h1>
-    {% if recipe.image %}
-    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 100%;">
-    {% endif %}
     <p>{{ recipe.description }}</p>
 
     <h2>Ингредиенты</h2>
     <ul class="list-unstyled">
         {% for ingredient in ingredients %}
-            <li>{{ ingredient.amount }} {{ ingredient.ingredient.unit }} - {{ ingredient.ingredient.name }}</li>
+        <li class="media my-4">
+            {% if ingredient.recipe.image %}
+            <img src="{{ ingredient.recipe.image.url }}" class="mr-3" alt="{{ ingredient.recipe.title }}" style="width: 100px; height: auto;">
+            {% endif %}
+            <div class="media-body">
+                <h5 class="mt-0 mb-1">{{ ingredient.ingredient.name }}</h5>
+                <p>{{ ingredient.amount }}</p>
+            </div>
+        </li>
         {% endfor %}
     </ul>
-
-    <h2>Пошаговая инструкция</h2>
-    <ol>
-        {% for instruction in instructions %}
-            <li>{{ instruction.step }}</li>
-        {% endfor %}
-    </ol>
 </div>
-
+{% endblock %}
