@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 
 from django.contrib.auth import logout, login
@@ -47,9 +48,14 @@ def add_recipe(request):
             ingredients_text = form.cleaned_data['ingredients']
             ingredients_list = ingredients_text.split('\n')
             for ingredient_str in ingredients_list:
-                ingredient_name, amount = ingredient_str.split('-')
+                match = re.match(r'(.+?),\s*(\d+)\s*(.*)', ingredient_str)
+                if match:
+                    ingredient_name = match.group(1)
+                    amount = int(match.group(2))
+                    unit = match.group(3)
+        
                 ingredient, _ = Ingredient.objects.get_or_create(name=ingredient_name.strip())
-                IngredientInRecipe.objects.create(recipe=recipe, ingredient=ingredient, amount=amount.strip())
+                IngredientInRecipe.objects.create(recipe=recipe, ingredient=ingredient, amount=amount)
 
             return redirect('index')
     else:
