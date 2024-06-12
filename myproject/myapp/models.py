@@ -14,12 +14,11 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
-    title = models.CharField(unique=True, max_length=100)
-    description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='recipes/')
-    cooking_time = models.PositiveIntegerField(validators=[MinValueValidator(1, message='min value = 1')])
-    ingredients = models.ManyToManyField(Ingredient, through='IngredientInRecipe',
-                                         through_fields=('recipe', 'ingredient'),)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    cooking_time = models.PositiveIntegerField()
+    image = models.ImageField(upload_to='recipes/', blank=True, null=True)
+    ingredients = models.TextField()
 
     def __str__(self):
         return self.title
