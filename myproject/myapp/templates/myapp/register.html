@@ -13,8 +13,7 @@
             <div class="form-error">{{ form.non_field.errors }}</div>
             {% for field in form %}
                 <div class="mb-3">
-                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}: </label>
-                    {{ field }}
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}: </label>{{ field }}
                     <div class="form-error">{{ field.errors }}</div>
                 </div>
             {% endfor %}

@@ -30,10 +30,12 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1', 
     'aquaGb.pythonanywhere.com',
+    'localhost',
 ]
 
 INTERNAL_IPS = [
