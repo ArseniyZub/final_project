@@ -14,7 +14,7 @@
             <img src="{{ item.image.url }}" class="mr-3" alt="{{ item.title }}" style="width: 100px; height: auto;">
             {% endif %}
             <div class="media-body">
-                <h5 class="mt-0 mb-1"><a href="{{ item.id }}">{{ item.title }}</a></h5>
+                <h5 class="mt-0 mb-1"><a href="{% url 'recipe_by_id' item.id %}">{{ item.title }}</a></h5>
                 <p>{{ item.description|linebreaks|truncatewords:50 }}</p>
             </div>
         </li>
@@ -22,3 +22,4 @@
     </ul>
 </div>
 {% endblock %}
+
