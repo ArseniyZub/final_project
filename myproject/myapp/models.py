@@ -18,7 +18,7 @@ class Recipe(models.Model):
     description = models.TextField()
     cooking_time = models.PositiveIntegerField()
     image = models.ImageField(upload_to='recipes/', blank=True, null=True)
-    ingredients = models.TextField()
+    ingredients = models.TextField(default='')
 
     def __str__(self):
         return self.title
