@@ -33,7 +33,7 @@ def recipe_by_id(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
     ingredients = IngredientInRecipe.objects.filter(recipe_id=recipe_id)
     context = {'menu': menu, 'title': recipe.title, 'recipe': recipe, 'ingredients': ingredients}
-    
+
     return render(request, 'myapp/recipe.html', context)
 
 
@@ -41,15 +41,22 @@ def add_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                form.save()
-                return redirect('index')
-            except:
-                form.add_error(None, 'Ошибка добавления рецепта')
+            recipe = form.save(commit=False)
+            recipe.save()
+
+            # Разбираем строку ингредиентов и сохраняем каждый ингредиент
+            ingredients_text = form.cleaned_data['ingredients']
+            ingredients_list = ingredients_text.split('\n')
+            for ingredient_str in ingredients_list:
+                ingredient_name, amount = ingredient_str.split(',')
+                ingredient, _ = Ingredient.objects.get_or_create(name=ingredient_name.strip())
+                IngredientInRecipe.objects.create(recipe=recipe, ingredient=ingredient, amount=amount.strip())
+
+            return redirect('index')
     else:
         form = RecipeForm()
-    context = {'menu': menu, 'title': 'Добавление рецепта', 'form': form}
 
+    context = {'form': form}
     return render(request, 'myapp/addrecipe.html', context)
 
 
