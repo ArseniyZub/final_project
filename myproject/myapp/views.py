@@ -32,13 +32,11 @@ def all_recipes(request):
 
 def recipe_by_id(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
-    ingredients = IngredientInRecipe.objects.filter(recipe=recipe)
     author = recipe.author
     context = {
         'menu': menu,  
         'title': recipe.title,
         'recipe': recipe,
-        'ingredients': ingredients,
         'author': author
     }
 
@@ -51,10 +49,6 @@ def add_recipe(request):
         if form.is_valid():
             try:
                 recipe = form.save(commit=False)
-                recipe.save()
-
-                ingredients_text = form.cleaned_data['ingredients']
-                recipe.ingredients = ingredients_text
                 recipe.save()
                 return redirect('index')
             except:

@@ -16,7 +16,7 @@
             <div class="media-body">
                 <h5 class="mt-0 mb-1"><a href="{% url 'recipe_by_id' recipe.id %}">{{ recipe.title }}</a></h5>
                 <p>{{ recipe.description|linebreaks|truncatewords:50 }}</p>
-                <p>Автор: {{ recipe.author.username }}</p>  <!-- Display author's username -->
+                <p>Автор: {{ recipe.author.username }}</p>
             </div>
         </li>
         {% endfor %}
