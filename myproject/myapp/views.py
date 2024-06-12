@@ -41,11 +41,16 @@ def add_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('recipes') 
+            try:
+                form.save()
+                return redirect('index')
+            except:
+                form.add_error(None, 'Ошибка добавления рецепта')
     else:
         form = RecipeForm()
-    return render(request, 'addrecipe.html', {'form': form, 'title': 'Добавить рецепт'})
+    context = {'menu': menu, 'title': 'Добавление рецепта', 'form': form}
+
+    return render(request, 'myapp/addrecipe.html', context)
 
 
 def page_not_found(request, exception):
