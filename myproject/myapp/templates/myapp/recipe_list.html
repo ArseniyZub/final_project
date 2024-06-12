@@ -1,21 +1,24 @@
-{% extends 'myapp/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
-{{title}}
+{{ title }}
 {% endblock %}
 
 {% block content %}
-<h1>{{title}}</h1>>
-    <ul>
+<div class="container mt-4">
+    <h1 class="display-4">{{ title }}</h1>
+    <ul class="list-unstyled">
         {% for item in recipes %}
-        <li>
-                <h3><a href="{{ item.id }}">{{item.title}}</a></h3>
-                {% if item.image %}
-                     <p><img src="{{ item.image.url }}"></p>
-                {% endif %}
-                <p>{{item.description|linebreaks|truncatewords:50}}</p>
-        </li>>
+        <li class="media my-4">
+            {% if item.image %}
+            <img src="{{ item.image.url }}" class="mr-3" alt="{{ item.title }}" style="width: 100px; height: auto;">
+            {% endif %}
+            <div class="media-body">
+                <h5 class="mt-0 mb-1"><a href="{{ item.id }}">{{ item.title }}</a></h5>
+                <p>{{ item.description|linebreaks|truncatewords:50 }}</p>
+            </div>
+        </li>
         {% endfor %}
-    </ul>>
-
+    </ul>
+</div>
 {% endblock %}

@@ -1,20 +1,25 @@
-{% extends 'myapp/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
-{{title}}
+Вход
 {% endblock %}
 
 {% block content %}
-<h1>{{title}}</h1>>
-
-<form method="post">
-    {% csrf_token %}
-
-    {% for field in form %}
-        <p><label class="form-label" for="{{ field.id_for_label}}">{{ field.label }}: </label>{{ field }}</p>
-        <div class="form-error">{{ field.errors }}</div>
-    {%endfor%}
-
-    <button type="submit">Войти</button>
-</form>
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Вход</h1>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-error">{{ form.non_field.errors }}</div>
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}: </label>
+                    {{ field }}
+                    <div class="form-error">{{ field.errors }}</div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

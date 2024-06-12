@@ -1,10 +1,13 @@
-{% extends 'myapp/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
-{{title}}
+{{ title }}
 {% endblock %}
 
 {% block content %}
-<h1>{{title}}</h1>>
-<p>Мой сайт</p>
+<div class="container mt-4">
+    <h1 class="display-4">{{ title }}</h1>
+    <p class="lead">Добро пожаловать на мой сайт с рецептами!</p>
+    <p>На этом сайте вы найдете множество рецептов на любой вкус. Зарегистрируйтесь или войдите, чтобы добавить свои рецепты и делиться ими с другими пользователями.</p>
+</div>
 {% endblock %}

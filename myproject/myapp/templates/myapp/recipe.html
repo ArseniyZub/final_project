@@ -1,24 +1,27 @@
-{% extends 'myapp/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
     {{ title }}
 {% endblock %}
 
 {% block content %}
-    <h1>{{ recipe.title }}</h1>>
+<div class="container mt-4">
+    <h1 class="display-4">{{ recipe.title }}</h1>
 
     {% if recipe.image %}
-        <p> <img src="{{ recipe.image.url }}"></p>
-    {% endif%}
+    <p><img src="{{ recipe.image.url }}" class="img-fluid" alt="{{ recipe.title }}"></p>
+    {% endif %}
 
-    <p>Время приготовления {{ recipe.cooking_time }} минут. </p>
-    <p>ИНГРЕДИЕНТЫ: </p>
-    {% for item in ingredients %}
-    <ul>
+    <p><strong>Время приготовления:</strong> {{ recipe.cooking_time }} минут</p>
+    <h2>Ингредиенты</h2>
+    <ul class="list-unstyled">
+        {% for item in ingredients %}
         <li>
-            <p>{{item}}</p>
-        </li>>
+            <p>{{ item }}</p>
+        </li>
         {% endfor %}
     </ul>
+</div>
+{% endblock %}
 
 {% endblock%}
