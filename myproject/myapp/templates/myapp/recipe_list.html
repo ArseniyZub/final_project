@@ -8,18 +8,18 @@
 <div class="container mt-4">
     <h1 class="display-4">{{ title }}</h1>
     <ul class="list-unstyled">
-        {% for item in recipes %}
+        {% for recipe in recipes %}
         <li class="media my-4">
-            {% if item.image %}
-            <img src="{{ item.image.url }}" class="mr-3" alt="{{ item.title }}" style="width: 100px; height: auto;">
+            {% if recipe.image %}
+            <img src="{{ recipe.image.url }}" class="mr-3" alt="{{ recipe.title }}" style="width: 100px; height: auto;">
             {% endif %}
             <div class="media-body">
-                <h5 class="mt-0 mb-1"><a href="{% url 'recipe_by_id' item.id %}">{{ item.title }}</a></h5>
-                <p>{{ item.description|linebreaks|truncatewords:50 }}</p>
+                <h5 class="mt-0 mb-1"><a href="{% url 'recipe_by_id' recipe.id %}">{{ recipe.title }}</a></h5>
+                <p>{{ recipe.description|linebreaks|truncatewords:50 }}</p>
+                <p>Автор: {{ recipe.author.username }}</p>  <!-- Display author's username -->
             </div>
         </li>
         {% endfor %}
     </ul>
 </div>
 {% endblock %}
-

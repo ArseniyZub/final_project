@@ -24,7 +24,7 @@ def index(request):
 
 
 def all_recipes(request):
-    recipes = Recipe.objects.all()
+    recipes = Recipe.objects.all().select_related('author')
     context = {'menu': menu, 'title': 'Рецепты', 'recipes': recipes}
 
     return render(request, 'myapp/recipe_list.html', context)
@@ -41,7 +41,7 @@ def recipe_by_id(request, recipe_id):
         'ingredients': ingredients,
         'author': author
     }
-    
+
     return render(request, 'myapp/recipe.html', context)
 
 
