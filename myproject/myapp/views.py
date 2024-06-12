@@ -44,11 +44,10 @@ def add_recipe(request):
             recipe = form.save(commit=False)
             recipe.save()
 
-            # Разбираем строку ингредиентов и сохраняем каждый ингредиент
             ingredients_text = form.cleaned_data['ingredients']
             ingredients_list = ingredients_text.split('\n')
             for ingredient_str in ingredients_list:
-                ingredient_name, amount = ingredient_str.split(',')
+                ingredient_name, amount = ingredient_str.split('-')
                 ingredient, _ = Ingredient.objects.get_or_create(name=ingredient_name.strip())
                 IngredientInRecipe.objects.create(recipe=recipe, ingredient=ingredient, amount=amount.strip())
 
