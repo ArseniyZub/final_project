@@ -46,16 +46,8 @@ def add_recipe(request):
             recipe.save()
 
             ingredients_text = form.cleaned_data['ingredients']
-            ingredients_list = ingredients_text.split('\n')
-            for ingredient_str in ingredients_list:
-                match = re.match(r'(.+?),\s*(\d+)\s*(.*)', ingredient_str)
-                if match:
-                    ingredient_name = match.group(1)
-                    amount = int(match.group(2))
-                    unit = match.group(3)
-        
-                ingredient, _ = Ingredient.objects.get_or_create(name=ingredient_name.strip())
-                IngredientInRecipe.objects.create(recipe=recipe, ingredient=ingredient, amount=amount)
+            recipe.ingredients = ingredients_text
+            recipe.save()
 
             return redirect('index')
     else:
