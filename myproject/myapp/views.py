@@ -55,7 +55,7 @@ def add_recipe(request):
 
     else:
         form = RecipeForm()
-    context = {'menu': menu, 'title': 'Добавление вкусняшки', 'form': form}
+    context = {'menu': menu, 'title': 'Добавление рецепты', 'form': form}
 
     return render(request, 'myapp/addrecipe.html', context)
 
